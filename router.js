@@ -2,10 +2,14 @@ const router = require('koa-router')()
 
 router.get('/', async (ctx) => {
   // ctx.body = 'hahha'
+  ctx.cookies.set('username', '1111', {
+    maxAge: 60 * 60 * 1000
+  })
   await ctx.render('index')
 })
   .get('/new', async ctx => {
-    ctx.body = '新闻页'
+    let username = ctx.cookies.get('username')
+    ctx.body = '新闻页' + username
     let req = ctx.request
   })
   .get('/newitem/:aid/:cid', async ctx => {
