@@ -2,8 +2,11 @@ const Koa = require('koa');
 const router = require('./router.js')
 const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
+const static = require('koa-static')
 
 const app = new Koa();
+
+app.use(static(__dirname + '/static'))
 
 app.use(views('views', { extension: 'ejs' }))
 

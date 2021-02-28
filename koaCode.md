@@ -77,3 +77,11 @@ await ctx.render("index");
 - app.use(bodyParser())
 
 - ctx.request.body
+
+# 静态资源服务
+
+```js
+const static = require("koa-static");
+app.use(static(__dirname + "/static"));
+//可以配置多个
+```

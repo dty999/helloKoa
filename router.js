@@ -11,8 +11,11 @@ router.get('/', async (ctx) => {
   .get('/newitem/:aid/:cid', async ctx => {
     ctx.body = ctx.params.aid + '/' + ctx.params.cid
   })
+
 router.post('/doAdd', async (ctx) => {
   console.log(ctx.request.body);
   ctx.body = ctx.request.body
 })
+
+
 module.exports = router
