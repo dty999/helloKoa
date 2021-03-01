@@ -85,3 +85,26 @@ const static = require("koa-static");
 app.use(static(__dirname + "/static"));
 //可以配置多个
 ```
+
+# 设置 session
+
+- 安装引入
+
+```js
+app.keys = ["some secret hurr"];
+// 配置seesion
+const CONFIG = {
+  key: "koa.sess",
+  maxAge: 10000,
+  overwrite: true /** (boolean) can overwrite or not (default true) */,
+  httpOnly: true /** (boolean) httpOnly or not (default true) */,
+  signed: true /** (boolean) signed or not (default true) */,
+  rolling: false /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. (default is false) */,
+  renew: true /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/,
+};
+
+app.use(session(CONFIG, app));
+
+ctx.session.userinfo = "张三";
+console.log(ctx.session.userinfo);
+```
