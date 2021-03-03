@@ -10,7 +10,7 @@ app.keys = ['some secret hurr'];
 // 配置seesion
 const CONFIG = {
   key: 'koa.sess',
-  maxAge: 10000,
+  maxAge: 100000,
   overwrite: true, /** (boolean) can overwrite or not (default true) */
   httpOnly: true, /** (boolean) httpOnly or not (default true) */
   signed: true, /** (boolean) signed or not (default true) */
