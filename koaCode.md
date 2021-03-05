@@ -108,3 +108,7 @@ app.use(session(CONFIG, app));
 ctx.session.userinfo = "张三";
 console.log(ctx.session.userinfo);
 ```
+
+# 启动 MongoDB 数据库
+
+- mongod --dbpath G:\data
