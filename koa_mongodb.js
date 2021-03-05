@@ -1,3 +1,5 @@
+const mgClient = require('mongodb').MongoClient
+
 
 class Db {
   static selfInfo = '---------操作mongodb数据库的类-----------'
