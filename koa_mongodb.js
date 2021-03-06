@@ -1,12 +1,12 @@
 const mgClient = require('mongodb').MongoClient
-
+const configInfo = {
+  dbUrl: 'mongodb://localhost:27017/',
+  dbName: 'koa'
+}
 
 class Db {
   static selfInfo = '---------操作mongodb数据库的类-----------'
-  static configInfo = {
-    dbUrl: 'mongodb://localhost:27017/',
-    dbName: 'koa'
-  }
+
 
 
   static getInstance() {
@@ -19,18 +19,19 @@ class Db {
       return Db.instance
     }
   }
-  constructor() {
+  constructor(configInfo) {
     this.db = null
-    this.connect()
+    this.configInfo = configInfo
+    this.connect().then(db => this.db = db).catch(err => this.db = err)
   }
   connect() {
     return new Promise((resolve, reject) => {
-      mgClient.connect(Db.configInfo.dbUrl, (err, client) => {
+
+      mgClient.connect(this.configInfo.dbUrl, (err, client) => {
         if (err) {
           reject(err)
         } else {
-          var db = client.db(Db.dbName)
-          this.db = db
+          var db = client.db(this.configInfo.dbName)
           resolve(db)
         }
       })
@@ -46,7 +47,15 @@ class Db {
     // })
   }
   find() {
-    console.log('查找数据');
+    if (this.db instanceof Error) {
+      //连接数据库错误
+    } else if (this.db === null) {
+      //正在连接数据库还没返回
+      this.connect()
+    } else {
+      //可以进行查询
+
+    }
   }
   update() { }
   insert() {
@@ -55,5 +64,7 @@ class Db {
 }
 
 
-let myDb1 = Db.getInstance()
-let myDb2 = Db.getInstance()
+let myDb1 = new Db(configInfo)
+
+
+
