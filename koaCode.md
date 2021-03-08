@@ -183,3 +183,47 @@ User.deleteOne({ username: "王五" }, (err, res) => {
   }
 });
 ```
+
+# 模块化
+
+- 创建 moudle 文件夹并 db.js 和 user.js
+
+## db.js 连接数据库
+
+```js
+var mongoose = require("mongoose");
+
+mongoose.connect(
+  "mongodb://127.0.0.1:27017/数据库名称",
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log("连接数据库成功");
+  }
+);
+
+module.exports = mongoose;
+```
+
+## user.js 连接数据库表,需要操作多个表请创建多个对应的 js 文件
+
+```js
+var mongoose = require("./db.js");
+var UserSchema = mongoose.Schema({
+  name: String,
+  age: Number,
+  // 默认参数
+  status: {
+    type: Number,
+    default: 0,
+  },
+});
+
+var UserModel = mongoose.model("User", UserSchema, "users");
+
+module.exports = UserModel;
+//将model导出
+```
